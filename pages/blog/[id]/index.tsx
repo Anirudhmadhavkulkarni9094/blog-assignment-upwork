@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 export default function Post({ post }: { post: { title: string; body: string } }) {
   const router = useRouter();
 
@@ -11,13 +12,19 @@ export default function Post({ post }: { post: { title: string; body: string } }
     );
   }
 
-  return (
+ return (
+  <>
+    <Head>
+      <title>{post.title} | My Blog</title>
+      <meta name="description" content={post.body.slice(0, 150)} />
+    </Head>
     <article className="max-w-3xl mx-auto p-6">
       <Link href="/blog" className="text-blue-500 hover:underline"> &larr; Go back</Link>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <p className="text-lg leading-relaxed">{post.body}</p>
     </article>
-  );
+  </>
+);
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {

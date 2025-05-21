@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import PostCard from '@/components/PostCard';
+import Head from 'next/head';
 
 export default function Home({ posts }: { posts: { id: number; title: string; body: string }[] }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,6 +17,11 @@ export default function Home({ posts }: { posts: { id: number; title: string; bo
   }, [searchTerm, posts]);
 
   return (
+    <>
+    <Head>
+        <title>Home | My Blog</title>
+        <meta name="description" content="Browse latest blog posts on web development, programming, and tech." />
+      </Head>
     <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-4 gap-8">
       {/* Left Sidebar: Search & Filter */}
       <div className="md:col-span-1 ">
@@ -26,7 +32,7 @@ export default function Home({ posts }: { posts: { id: number; title: string; bo
           className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-        />
+          />
         {/* You can add more filter controls here */}
       </div>
 
@@ -34,16 +40,17 @@ export default function Home({ posts }: { posts: { id: number; title: string; bo
       <main className="md:col-span-3">
         <h1 className="text-3xl font-bold mb-6">Latest Blog Posts</h1>
         {filteredPosts.length === 0 ? (
-          <p className="text-gray-500">No posts found.</p>
+            <p className="text-gray-500">No posts found.</p>
         ) : (
-          <div className="space-y-6">
+            <div className="space-y-6">
             {filteredPosts.map((post) => (
-              <PostCard key={post.id} post={post} />
+                <PostCard key={post.id} post={post} />
             ))}
           </div>
         )}
       </main>
     </div>
+        </>
   );
 }
 

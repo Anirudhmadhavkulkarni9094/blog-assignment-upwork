@@ -1,9 +1,16 @@
 import Layout from '@/components/Layout';
 import PostCard from '@/components/PostCard';
+import Head from 'next/head';
 
 export default function Home({ posts }:{ posts: { id: number; title: string; body: string }[] }) {
   return (
+    <>
+    <Head>
+    <title>Home | My Blog</title>
+    <meta name="description" content="Welcome to my blog. Explore posts about web development, programming, and tech." />
+  </Head>
     <Layout>
+      
       <div className="max-w-5xl mx-auto px-4">
         {/* Hero Section */}
         <section className="text-center py-16">
@@ -43,6 +50,7 @@ export default function Home({ posts }:{ posts: { id: number; title: string; bod
         </section>
       </div>
     </Layout>
+</>
   );
 }
 
